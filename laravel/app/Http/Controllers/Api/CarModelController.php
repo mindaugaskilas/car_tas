@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCarModelRequest;
 use App\Http\Resources\CarModelResource;
 use App\Models\CarModel;
 use Illuminate\Http\Request;
@@ -15,15 +16,11 @@ class CarModelController extends Controller
         return CarModelResource::collection(CarModel::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreCarModelRequest $request)
     {
-        //
+        $carModel = CarModel::create($request->all());
+
+        return response()->json($carModel, 201);
     }
 
     public function show(int $id): CarModelResource
@@ -31,26 +28,18 @@ class CarModelController extends Controller
         return new CarModelResource(CarModel::find($id));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(StoreCarModelRequest $request, int $id)
     {
-        //
+        $carModel = CarModel::findOrFail($id);
+        $carModel->update($request->all());
+
+        return $carModel;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+        CarModel::find($id)->delete();
+
+        return response()->json(null, 204);
     }
 }

@@ -22,8 +22,6 @@ return new class extends Migration
 
             $table->foreign('car_brand_id')->references('id')->on('car_brands');
         });
-
-
     }
 
     /**
