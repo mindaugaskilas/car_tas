@@ -5,6 +5,7 @@ namespace App\Models;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CarBrand extends Model
@@ -13,9 +14,9 @@ class CarBrand extends Model
 
     protected $fillable = ['name'];
 
-    protected $cascadeDeletes = ['carModels'];
+    protected array $cascadeDeletes = ['carModels'];
 
-    public function carModels()
+    public function carModels(): HasMany
     {
         return $this->hasMany(CarModel::class);
     }

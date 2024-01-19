@@ -16,14 +16,14 @@ class CarResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'carNumber' => $this->car_number,
-            'fuelTankCapacity' => $this->fuel_tank_capacity,
-            'averageFuelConsumption' => $this->average_fuel_consumption,
-            'carBrand' => $this->carBrand,
-            'carModel' => $this->carModel,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
-            'deletedAt' => $this->deleted_at,
+            'car_number' => $this->car_number,
+            'fuel_tank_capacity' => $this->fuel_tank_capacity,
+            'average_fuel_consumption' => $this->average_fuel_consumption,
+            'car_brand' => $this->carBrand,
+            'car_model' => $this->carModel,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
         ];
     }
 }

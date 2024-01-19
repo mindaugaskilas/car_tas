@@ -19,9 +19,9 @@ class CarModelResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'brand' => CarBrand::find($this->car_brand_id),
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
-            'deletedAt' => $this->deleted_at,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'deleted_at' => $this->deleted_at,
         ];
     }
 }
