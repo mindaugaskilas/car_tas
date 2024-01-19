@@ -13,7 +13,7 @@ class CarModel extends Model
 
     protected $fillable = ['title', 'car_brand_id'];
 
-    public function carType(): BelongsTo
+    public function carBrand(): BelongsTo
     {
         return $this->belongsTo(CarBrand::class, 'car_brand_id');
     }

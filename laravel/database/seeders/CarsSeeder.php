@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\CarModel;
+use App\Models\Car;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CarModelsSeeder extends Seeder
+class CarsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,8 +17,8 @@ class CarModelsSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-        DB::table('car_models')->truncate();
-        CarModel::factory(30)->create();
+        DB::table('cars')->truncate();
+        Car::factory(5)->create();
         Schema::enableForeignKeyConstraints();
     }
 }

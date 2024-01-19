@@ -17,10 +17,10 @@ class CarBrandResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'brands' => $this->carModels,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'deleted_at' => $this->deleted_at,
+            'models' => $this->carModels,
+            'createdAt' => $this->created_at,
+            'updatedAt' => $this->updated_at,
+            'deletedAt' => $this->deleted_at,
         ];
     }
 }
