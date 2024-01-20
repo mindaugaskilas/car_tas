@@ -21,7 +21,7 @@
               <tbody v-if="cars.length > 0">
               <tr v-for="(car, key) in cars" :key="key">
                 <td>{{ car.car_number }}</td>
-                <td>{{ car.car_brand.name }} {{ car.car_model.title }}</td>
+                <td>{{ car?.car_brand?.name }} {{ car?.car_model?.title }}</td>
                 <td>{{ car.fuel_tank_capacity }}</td>
                 <td>{{ car.average_fuel_consumption }}</td>
                 <td>{{ this.getDistance(car.fuel_tank_capacity, car.average_fuel_consumption ) }}</td>

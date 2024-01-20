@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
-class CarBrandResource extends JsonResource
+class CarBrandResource extends CarResourceAbstract
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +16,9 @@ class CarBrandResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'models' => $this->carModels,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'deleted_at' => $this->deleted_at,
+            'created_at' => $this->dateNormalize($this->created_at),
+            'updated_at' => $this->dateNormalize($this->updated_at),
+            'deleted_at' => $this->dateNormalize($this->deleted_at),
         ];
     }
 }

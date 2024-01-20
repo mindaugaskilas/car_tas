@@ -33,7 +33,7 @@ class CarBrandController extends Controller
         $carBrand = CarBrand::findOrFail($id);
         $carBrand->update($request->all());
 
-        return response()->json($carBrand);
+        return response()->json(new CarBrandResource($carBrand), 200);
     }
 
     public function destroy(int $id): JsonResponse

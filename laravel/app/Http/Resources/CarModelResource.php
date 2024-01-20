@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use App\Models\CarBrand;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class CarModelResource extends JsonResource
+class CarModelResource extends CarResourceAbstract
 {
     /**
      * Transform the resource into an array.
@@ -19,9 +18,9 @@ class CarModelResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'brand' => CarBrand::find($this->car_brand_id),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'deleted_at' => $this->deleted_at,
+            'created_at' => $this->dateNormalize($this->created_at),
+            'updated_at' => $this->dateNormalize($this->updated_at),
+            'deleted_at' => $this->dateNormalize($this->deleted_at),
         ];
     }
 }
