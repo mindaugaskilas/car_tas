@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCarModelRequest;
 use App\Http\Requests\UpdateCarModelRequest;
 use App\Http\Resources\CarModelResource;
 use App\Models\CarModel;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -17,29 +18,29 @@ class CarModelController extends Controller
         return CarModelResource::collection(CarModel::all());
     }
 
-    public function store(StoreCarModelRequest $request)
+    public function store(StoreCarModelRequest $request): JsonResponse
     {
-        $carModel = CarModel::create($request->all());
+        $carModel = (new CarModel)->create($request->all());
 
         return response()->json($carModel, 201);
     }
 
     public function show(int $id): CarModelResource
     {
-        return new CarModelResource(CarModel::find($id));
+        return new CarModelResource((new CarModel)->find($id));
     }
 
-    public function update(UpdateCarModelRequest $request, int $id)
+    public function update(UpdateCarModelRequest $request, int $id): JsonResponse
     {
-        $carModel = CarModel::findOrFail($id);
+        $carModel = (new CarModel)->findOrFail($id);
         $carModel->update($request->all());
 
         return response()->json(new CarModelResource($carModel), 200);
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
-        CarModel::find($id)->delete();
+        (new CarModel)->find($id)->delete();
 
         return response()->json(null, 204);
     }

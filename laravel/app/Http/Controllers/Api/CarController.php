@@ -56,19 +56,19 @@ class CarController extends Controller
 
     public function show(int $id): CarResource
     {
-        return new CarResource(Car::find($id));
+        return new CarResource((new Car)->find($id));
     }
 
     public function store(StoreCarRequest $request): JsonResponse
     {
-        $carModel = Car::create($request->all());
+        $carModel = (new Car)->create($request->all());
 
         return response()->json($carModel, 201);
     }
 
-    public function update(UpdateCarRequest $request, int $id)
+    public function update(UpdateCarRequest $request, int $id): JsonResponse
     {
-        $carModel = Car::findOrFail($id);
+        $carModel = (new Car)->findOrFail($id);
         $carModel->update($request->all());
 
         return response()->json(new CarResource($carModel), 200);
@@ -76,7 +76,7 @@ class CarController extends Controller
 
     public function destroy(int $id): JsonResponse
     {
-        Car::find($id)->delete();
+        (new Car)->find($id)->delete();
 
         return response()->json(null, 204);
     }

@@ -19,19 +19,19 @@ class CarBrandController extends Controller
 
     public function show(int $id): CarBrandResource
     {
-        return new CarBrandResource(CarBrand::find($id));
+        return new CarBrandResource((new CarBrand)->find($id));
     }
 
     public function store(StoreCarBrandRequest $request): JsonResponse
     {
-        $carBrand = CarBrand::create($request->all());
+        $carBrand = (new CarBrand)->create($request->all());
 
         return response()->json($carBrand, 201);
     }
 
     public function update(UpdateCarBrandRequest $request, int $id): JsonResponse
     {
-        $carBrand = CarBrand::findOrFail($id);
+        $carBrand = (new CarBrand)->findOrFail($id);
         $carBrand->update($request->all());
 
         return response()->json(new CarBrandResource($carBrand), 200);
@@ -39,7 +39,7 @@ class CarBrandController extends Controller
 
     public function destroy(int $id): JsonResponse
     {
-        CarBrand::find($id)->delete();
+        (new CarBrand)->find($id)->delete();
 
         return response()->json(null, 204);
     }
