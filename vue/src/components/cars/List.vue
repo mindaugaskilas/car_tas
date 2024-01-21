@@ -13,16 +13,22 @@
                   <th>Tank capacity, L</th>
                   <th>Average fuel consumption, L/100 km</th>
                   <th>Estimated distance, ~ km</th>
+                  <th>Created at</th>
+                  <th>Update at</th>
+                  <th>Deleted at</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody v-if="cars.length > 0">
                 <tr v-for="(car, key) in cars" :key="key">
                   <td>{{ car.car_number }}</td>
-                  <td>{{ car?.car_brand?.name }} {{ car?.car_model?.title }}</td>
+                  <td>{{ car?.car_brand?.name }} {{ car?.car_model?.name }}</td>
                   <td>{{ car.fuel_tank_capacity }}</td>
                   <td>{{ car.average_fuel_consumption }}</td>
                   <td>{{this.getDistance(car.fuel_tank_capacity, car.average_fuel_consumption)}}</td>
+                  <td>{{ car.created_at }}</td>
+                  <td>{{ car.updated_at }}</td>
+                  <td>{{ car.deleted_at }}</td>
                   <td class="d-inline-flex">
                     <router-link :to='{name: "carEdit", params: { id:car.id }}' class="btn btn-success">Edit</router-link>
                     <button type="button" @click="deleteCar(car.id)" class="btn btn-danger">Delete</button>

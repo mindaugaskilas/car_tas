@@ -9,7 +9,14 @@
       <tbody v-if="data.length > 0">
         <tr v-for="(item, key) in data" :key="key">
           <td v-for="(value, index) in item" :key="index">
-            {{ value.name ?? value  }}
+            <div v-if=Array.isArray(value)>
+              <ul>
+                <li v-for="(v, i) in value" :key="i">{{ v.name }}</li>
+              </ul>
+            </div>
+            <div v-else>
+              {{ value?.name ?? value  }}
+            </div>
           </td>
         </tr>
       </tbody>
@@ -28,5 +35,10 @@ export default {
     headers: Array,
     data: Array,
   },
+  computed: {
+    isInArray: function(value) {
+        return this.array.includes(value);
+    }
+  }
 };
 </script>

@@ -9,12 +9,18 @@
               <thead>
                 <tr>
                   <th>Model</th>
+                  <th>Created at</th>
+                  <th>Updated at</th>
+                  <th>Deleted at</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody v-if="models.length > 0">
                 <tr v-for="(model, key) in models" :key="key">
                   <td>{{ model.name }}</td>
+                  <td>{{ model.created_at }}</td>
+                  <td>{{ model.updated_at }}</td>
+                  <td>{{ model.deleted_at }}</td>
                   <td class="d-inline-flex">
                     <router-link :to='{name: "modelEdit", params: { id:model.id }}' class="btn btn-success">Edit</router-link>
                     <button type="button" @click="deleteModel(model.id)" class="btn btn-danger">Delete</button>

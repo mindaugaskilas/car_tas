@@ -15,7 +15,7 @@
             'Updated at',
             'Deleted at',
           ]"
-          v-bind:data="[car]"
+          v-bind:data="[carDisplay]"
         />
       </div>
       <div class="col-md-6">
@@ -68,6 +68,7 @@ export default {
   data() {
     return {
       car: {},
+      carDisplay: {},
       brands: [],
       modelsByBrand: [],
       selectedBrandValue: 0,
@@ -85,6 +86,7 @@ export default {
         .get(`api/cars/${this.$route.params.id}`)
         .then((response) => {
           this.car = response.data.data;
+          this.carDisplay = response.data.data;
           this.selectedBrandValue = this.car.car_brand.id;
           this.getBrand();
         })

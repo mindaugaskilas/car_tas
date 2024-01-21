@@ -2,27 +2,18 @@
   <div>
     <h3 class="text-center">Edit Model</h3>
     <div class="row">
-      <div class="col-md-6">
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Model name</th>
-                <th>Brand name</th>
-                <th>Created</th>
-                <th>Updated</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{ model.name }}</td>
-                <td>{{ model?.brand?.name }}</td>
-                <td>{{ model.created_at }}</td>
-                <td>{{ model.updated_at }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div>
+        <ResponsiveTable
+          v-bind:headers="[
+            'ID',
+            'Car model',
+            'Car Brand',
+            'Created at',
+            'Updated at',
+            'Deleted at',
+          ]"
+          v-bind:data="[model]"
+        />
       </div>
       <div class="col-md-6">
         <form @submit.prevent="updateModel">

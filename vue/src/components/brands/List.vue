@@ -9,12 +9,22 @@
               <thead>
                 <tr>
                   <th>Brand</th>
+                  <th>Models</th>
+                  <th>Created at</th>
+                  <th>Updated at</th>
+                  <th>Deleted at</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody v-if="brands.length > 0">
                 <tr v-for="(brand, key) in brands" :key="key">
                   <td>{{ brand.name }}</td>
+                  <td>
+                    <ul><li v-for="(model, key) in brand.models" :key="key">{{ model.name }}</li></ul>
+                  </td>
+                  <td>{{ brand.created_at }}</td>
+                  <td>{{ brand.updated_at }}</td>
+                  <td>{{ brand.deleted_at }}</td>
                   <td class="d-inline-flex">
                     <router-link :to='{ name: "brandEdit", params: { id: brand.id } }' class="btn btn-success">Edit</router-link>
                     <button type="button" @click="deleteBrand(brand.id)" class="btn btn-danger">Delete</button>

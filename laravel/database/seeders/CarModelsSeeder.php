@@ -18,7 +18,7 @@ class CarModelsSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
         DB::table('car_models')->truncate();
-        CarModel::factory(30)->create();
+        CarModel::factory(50)->create();
         Schema::enableForeignKeyConstraints();
     }
 }
