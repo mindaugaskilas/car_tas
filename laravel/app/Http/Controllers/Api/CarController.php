@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateCarRequest;
 use App\Http\Resources\CarResource;
 use App\Models\Car;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CarController extends Controller
@@ -35,7 +34,7 @@ class CarController extends Controller
         $carModel = Car::findOrFail($id);
         $carModel->update($request->all());
 
-        return $carModel;
+        return response()->json(new CarResource($carModel), 200);
     }
 
     public function destroy(int $id): JsonResponse

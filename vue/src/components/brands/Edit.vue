@@ -30,7 +30,7 @@
             v-model=brand.name
             type="text"
           />
-          <button type="submit" class="btn btn-primary">Edit</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
@@ -71,7 +71,11 @@ export default {
             alert('Brand updated success')
           }
         })
-        .catch((err) => alert(err.message))
+        .catch((error) => {
+          if (error.response) {
+            alert(`"Message: " ${error.response.data.message}, "Status: " ${error.response.status}`);
+          }
+        })
         .finally(() => (this.loading = false));
     },
   }

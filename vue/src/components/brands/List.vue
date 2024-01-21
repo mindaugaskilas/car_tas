@@ -1,8 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-12 mb-2 text-end">
-      <router-link :to='{ name: "brandCreate" }' class="btn btn-primary">Create</router-link>
-    </div>
+    <LinkButton route="brandCreate" label="Create" />
     <div class="col-12">
       <div class="card">
         <div class="card-body">
@@ -17,14 +15,9 @@
               <tbody v-if="brands.length > 0">
                 <tr v-for="(brand, key) in brands" :key="key">
                   <td>{{ brand.name }}</td>
-                  <td>
-                    <div class="col-12 mb-2 text-end">
-                      <router-link :to='{ name: "brandEdit", params: { id: brand.id } }'
-                        class="btn btn-primary">Edit</router-link>
-                    </div>
-                    <div class="col-12 mb-2 text-end">
-                      <button type="button" @click="deleteBrand(brand.id)" class="btn btn-danger">Delete</button>
-                    </div>
+                  <td class="d-inline-flex">
+                    <router-link :to='{ name: "brandEdit", params: { id: brand.id } }' class="btn btn-success">Edit</router-link>
+                    <button type="button" @click="deleteBrand(brand.id)" class="btn btn-danger">Delete</button>
                   </td>
                 </tr>
               </tbody>
@@ -61,20 +54,17 @@ export default {
         this.brands = []
       })
     },
-    deleteBrand(id){
-      console.log(id);
-        if(confirm("Are you sure to delete this category ?")){
-            this.axios.delete(`api/car-brands/${id}`).then(response=>{
-              if(response.status === 204) {
-                this.getBrandList()
-              }
-            }).catch(error=>{
-                console.log(error)
-            })
-        }
+    deleteBrand(id) {
+      if (confirm("Are you sure to delete this brand?")) {
+        this.axios.delete(`api/car-brands/${id}`).then(response => {
+          if (response.status === 204) {
+            this.getBrandList()
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+      }
     }
   }
 }
 </script>
-  
-<style scoped></style>

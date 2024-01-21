@@ -17,7 +17,7 @@ export default {
   props: {
     id: String,
     labelText: String,
-    modelValue: String,
+    modelValue: [String, Number],
     type: String,
     step: String,
   },

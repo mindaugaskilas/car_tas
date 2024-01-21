@@ -24,7 +24,7 @@ class StoreCarModelRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique:car_models|max:255',
+            'name' => 'required|unique:car_models|max:255',
             'car_brand_id' => 'required',
         ];
     }

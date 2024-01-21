@@ -16,7 +16,7 @@ class CarModelResource extends CarResourceAbstract
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
+            'name' => $this->name,
             'brand' => CarBrand::find($this->car_brand_id),
             'created_at' => $this->dateNormalize($this->created_at),
             'updated_at' => $this->dateNormalize($this->updated_at),
