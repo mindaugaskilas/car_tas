@@ -29,7 +29,15 @@ export default {
             this.$router.push({name: 'carBrands'});
           }
         })
-        .catch((err) => console.log(err))
+        .catch((error) => {
+          if (error.response) {
+            alert(
+              `"Message: " ${error.response.data.message}, "Status: " ${error.response.status}`
+            );
+          } else {
+            console.log(error);
+          }
+        })
         .finally(() => (this.loading = false));
     },
   },

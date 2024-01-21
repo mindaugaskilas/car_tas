@@ -156,6 +156,8 @@ export default {
             alert(
               `"Message: " ${error.response.data.message}, "Status: " ${error.response.status}`
             );
+          } else {
+            console.log(error);
           }
         })
         .finally(() => (this.loading = false));

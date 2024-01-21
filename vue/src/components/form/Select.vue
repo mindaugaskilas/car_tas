@@ -25,14 +25,5 @@ export default {
     options: Array,
     selectedValue: Number,
   },
-  // setup(props, { emit }) {
-  //       const selectedValue = (event) => {
-  //           emit("update:modelValue", event.target.value)
-  //       }
-
-  //       return {
-  //         selectedValue
-  //       }
-  //   }
 };
 </script>

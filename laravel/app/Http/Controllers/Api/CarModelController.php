@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCarModelRequest;
+use App\Http\Requests\UpdateCarModelRequest;
 use App\Http\Resources\CarModelResource;
 use App\Models\CarModel;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class CarModelController extends Controller
         return new CarModelResource(CarModel::find($id));
     }
 
-    public function update(StoreCarModelRequest $request, int $id)
+    public function update(UpdateCarModelRequest $request, int $id)
     {
         $carModel = CarModel::findOrFail($id);
         $carModel->update($request->all());

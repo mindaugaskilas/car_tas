@@ -79,7 +79,11 @@ export default {
         })
         .catch((error) => {
           if (error.response) {
-            alert(`"Message: " ${error.response.data.message}, "Status: " ${error.response.status}`);
+            alert(
+              `"Message: " ${error.response.data.message}, "Status: " ${error.response.status}`
+            );
+          } else {
+            console.log(error);
           }
         })
         .finally(() => (this.loading = false));

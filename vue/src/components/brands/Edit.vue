@@ -14,9 +14,9 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>{{ dbBrand.name }}</td>
-                  <td>{{ dbBrand.created_at }}</td>
-                  <td>{{ dbBrand.updated_at }}</td>
+                  <td>{{ brand.name }}</td>
+                  <td>{{ brand.created_at }}</td>
+                  <td>{{ brand.updated_at }}</td>
                 </tr>
               </tbody>
             </table>
@@ -43,7 +43,6 @@ export default {
   data() {
     return {
       brand: {},
-      dbBrand: {},
     };
   },
   mounted() {
@@ -52,10 +51,10 @@ export default {
   methods: {
     async getBrand() {
       await this.axios.get(`api/car-brands/${this.$route.params.id}`).then(response => {
-        this.dbBrand = response.data.data
+        this.brand = response.data.data
       }).catch(error => {
         console.log(error)
-        this.dbBrand = {}
+        this.brand = {}
       })
     },
     updateBrand() {
@@ -66,14 +65,18 @@ export default {
       this.axios
         .put(`api/car-brands/${this.$route.params.id}`, formData)
         .then((response) => {
-          this.dbBrand = response.data
+          this.brand = response.data
           if (response.status == '200') {
             alert('Brand updated success')
           }
         })
         .catch((error) => {
           if (error.response) {
-            alert(`"Message: " ${error.response.data.message}, "Status: " ${error.response.status}`);
+            alert(
+              `"Message: " ${error.response.data.message}, "Status: " ${error.response.status}`
+            );
+          } else {
+            console.log(error);
           }
         })
         .finally(() => (this.loading = false));

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCarBrandRequest;
+use App\Http\Requests\UpdateCarBrandRequest;
 use App\Http\Resources\CarBrandResource;
 use App\Models\CarBrand;
 use Illuminate\Http\JsonResponse;
@@ -28,7 +29,7 @@ class CarBrandController extends Controller
         return response()->json($carBrand, 201);
     }
 
-    public function update(StoreCarBrandRequest $request, int $id): JsonResponse
+    public function update(UpdateCarBrandRequest $request, int $id): JsonResponse
     {
         $carBrand = CarBrand::findOrFail($id);
         $carBrand->update($request->all());

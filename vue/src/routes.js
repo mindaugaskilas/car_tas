@@ -11,12 +11,12 @@ const ModelCreate = () => import('./components/models/Create.vue')
 export const routes = [
     { name: 'index', path: '/' },
     { name: 'cars', path: '/cars', component: CarList },
-    { name: 'carCreate', path: '/cars', component: CarCreate },
+    { name: 'carCreate', path: '/cars/create', component: CarCreate },
     { name: 'carEdit', path: '/cars/:id', component: CarEdit },
     { name: 'carBrands', path: '/brands', component: CarBrands },
-    { name: 'brandCreate', path: '/brands', component: BrandCreate },
+    { name: 'brandCreate', path: '/brands/create', component: BrandCreate },
     { name: 'brandEdit', path: '/brand/:id', component: BrandEdit },
     { name: 'carModels', path: '/models', component: CarModels },
     { name: 'modelEdit', path: '/model/:id', component: ModelEdit },
-    { name: 'modelCreate', path: '/model', component: ModelCreate },
+    { name: 'modelCreate', path: '/model/create', component: ModelCreate },
 ]

@@ -25,9 +25,17 @@
           />
           <SimpleSelect
             id="car_brand_id"
-            labelText="Car Brand"
+            labelText="Car brand"
             v-model="car.car_brand_id"
-            v-bind:options="this.brands"
+            v-bind:options="this.brandoptions"
+            @SelectEventChanged="updatedBrandId"
+          />
+          <SimpleSelect
+            id="car_model_id"
+            labelText="Car model"
+            v-model="car.car_model_id"
+            v-bind:options="this.modelOptions"
+            @SelectEventChanged="updatedModelId"
           />
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -42,40 +50,69 @@ export default {
   data() {
     return {
       car: {},
-      brands: [],
+      dbBrands: [],
+      brandoptions: [],
+      modelOptions: [],
     };
   },
   mounted() {
-    this.getModelList();
+    this.getBrandList();
   },
   methods: {
     addCar() {
       this.axios
         .post("api/cars", this.car)
         .then((response) => {
-          console.log(response);
-          alert("Form was submitted successfully");
-          return response;
+          if (response.status == "201") {
+            this.$router.push({ name: "cars" });
+          }
         })
-        .catch((err) => console.log(err))
+        .catch((error) => {
+          if (error.response) {
+            alert(
+              `"Message: " ${error.response.data.message}, "Status: " ${error.response.status}`
+            );
+          } else {
+            console.log(error);
+          }
+        })
         .finally(() => (this.loading = false));
     },
-    async getModelList() {
+    async getBrandList() {
       await this.axios
         .get("api/car-brands")
         .then((response) => {
-          response.data.data.forEach((element) => {
+          this.dbBrands = response.data.data;
+          this.dbBrands.forEach((element) => {
             const newItem = {
               id: element.id,
               name: element.name,
             };
-            this.brands.push(newItem);
+            this.brandoptions.push(newItem);
           });
         })
         .catch((error) => {
           console.log(error);
-          this.brands = [];
+          this.brandoptions = [];
         });
+    },
+    updatedBrandId(data) {
+      this.modelOptions = [];
+      this.car.car_brand_id = data;
+      JSON.parse(JSON.stringify(this.dbBrands)).forEach((element) => {
+        if (element.id === Number(data)) {
+          element.models.forEach((model) => {
+            const newItem = {
+              id: model.id,
+              name: model.name,
+            };
+            this.modelOptions.push(newItem);
+          });
+        }
+      });
+    },
+    updatedModelId(data) {
+      this.car.car_model_id = data;
     },
   },
 };

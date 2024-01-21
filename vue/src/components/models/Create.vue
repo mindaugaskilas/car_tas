@@ -49,15 +49,23 @@ export default {
         });
     },
     addModel() {
-        this.axios
-          .post("api/car-models", this.model)
-          .then((response) => {
-            if (response.status == "201") {
-              this.$router.push({ name: "carModels" });
-            }
-          })
-          .catch((err) => console.log(err))
-          .finally(() => (this.loading = false));
+      this.axios
+        .post("api/car-models", this.model)
+        .then((response) => {
+          if (response.status == "201") {
+            this.$router.push({ name: "carModels" });
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            alert(
+              `"Message: " ${error.response.data.message}, "Status: " ${error.response.status}`
+            );
+          } else {
+            console.log(error);
+          }
+        })
+        .finally(() => (this.loading = false));
     },
     updateBrandId(data) {
       this.model.car_brand_id = data;
