@@ -23,14 +23,13 @@
             type="number"
             step="0.1"
           />
-
           <SimpleSelect
             id="car_brand_id"
             labelText="Car Brand"
             v-model="car.car_brand_id"
             v-bind:options="this.brands"
           />
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>

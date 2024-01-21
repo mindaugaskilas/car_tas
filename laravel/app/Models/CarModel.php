@@ -11,7 +11,7 @@ class CarModel extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['title', 'car_brand_id'];
+    protected $fillable = ['name', 'car_brand_id'];
 
     public function carBrand(): BelongsTo
     {

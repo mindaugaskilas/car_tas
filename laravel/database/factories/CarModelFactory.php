@@ -16,7 +16,7 @@ class CarModelFactory extends Factory
         $this->faker->addProvider(new Fakecar($this->faker));
 
         return [
-            'title' => $this->faker->vehicleModel(),
+            'name' => $this->faker->vehicleModel(),
             'car_brand_id' => CarBrand::all()->random()->id,
         ];
     }

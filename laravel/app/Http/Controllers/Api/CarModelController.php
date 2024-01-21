@@ -33,7 +33,7 @@ class CarModelController extends Controller
         $carModel = CarModel::findOrFail($id);
         $carModel->update($request->all());
 
-        return $carModel;
+        return response()->json(new CarModelResource($carModel), 200);
     }
 
     public function destroy(int $id)

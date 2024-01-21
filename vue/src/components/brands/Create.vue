@@ -5,7 +5,7 @@
       <div class="col-md-6">
         <form @submit.prevent="addBrand">
           <SimpleInput id="car_brand" labelText="Car brand" v-model="brand.name" type="text" />
-          <button type="submit" class="btn btn-primary">Create</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
