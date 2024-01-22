@@ -72,19 +72,6 @@ services:
     networks:
       - app-network
 
-  #Adminer
-#  adminer:
-#    image: adminer
-#    container_name: adminer
-#    depends_on:
-#        - mysql
-#    ports:
-#        - "8080:8080"
-#    logging:
-#        driver: none
-#    networks:
-#        - app-network
-
 #Docker Networks
 networks:
   app-network:
