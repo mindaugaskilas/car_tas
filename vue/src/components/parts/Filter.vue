@@ -11,18 +11,21 @@
             labelText="Car number"
             v-model="filter.number"
             type="text"
+            @UpdateValue="updateValue"
           />
           <SimpleInput
             id="brand"
             labelText="Brand name"
             v-model="filter.brand"
             type="text"
+            @UpdateValue="updateValue"
           />
           <SimpleInput
             id="model"
             labelText="Model name"
             v-model="filter.model"
             type="text"
+            @UpdateValue="updateValue"
           />
           <div class="form-group m-1">
             <label for="delete">With deleted cars</label>
@@ -60,8 +63,12 @@ export default {
     };
   },
   methods: {
+    updateValue (data) {
+      this.filter[data.id] = data.value;
+    },
     submitFilter() {
       store.filter = this.filter;
+      console.log(this.filter);
     },
     resetFilter() {
       Object.assign((this.filter = {}));

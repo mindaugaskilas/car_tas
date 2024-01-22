@@ -33,8 +33,10 @@
                   <td>{{ car.updated_at }}</td>
                   <td>{{ car.deleted_at }}</td>
                   <td class="d-inline-flex">
-                    <router-link :to="{ name: 'carEdit', params: { id: car.id } }" class="btn btn-success">Edit</router-link>
-                    <button type="button" @click="deleteCar(car.id)" class="btn btn-danger">Delete</button>
+                    <div v-if="!car.deleted_at">
+                      <router-link :to="{ name: 'carEdit', params: { id: car.id } }" class="btn btn-success">Edit</router-link>
+                      <button type="button" @click="deleteCar(car.id)" class="btn btn-danger">Delete</button>
+                    </div>
                   </td>
                 </tr>
               </tbody>
