@@ -5,16 +5,18 @@
       <div class="col-md-6">
         <form @submit.prevent="addCar">
           <SimpleInput
-            id="car_numer"
+            id="car_number"
             labelText="Car number"
             v-model="car.car_number"
             type="text"
+            @UpdateValue="updateValue"
           />
           <SimpleInput
             id="fuel_tank_capacity"
             labelText="Fuel tank capacity"
             v-model="car.fuel_tank_capacity"
             type="number"
+            @UpdateValue="updateValue"
           />
           <SimpleInput
             id="average_fuel_consumption"
@@ -22,6 +24,7 @@
             v-model="car.average_fuel_consumption"
             type="number"
             step="0.1"
+            @UpdateValue="updateValue"
           />
           <SimpleSelect
             id="car_brand_id"
@@ -113,6 +116,9 @@ export default {
     },
     updatedModelId(data) {
       this.car.car_model_id = data;
+    },
+    updateValue (data) {
+      this.car[data.id] = data.value;
     },
   },
 };
