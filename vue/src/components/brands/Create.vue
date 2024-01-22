@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-6">
         <form @submit.prevent="addBrand">
-          <SimpleInput id="car_brand" labelText="Car brand" v-model="brand.name" type="text" />
+          <SimpleInput id="name" labelText="Car brand" v-model="brand.name" type="text" @UpdateValue="updateValue"/>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
@@ -21,6 +21,9 @@ export default {
     };
   },
   methods: {
+    updateValue (data) {
+      this.brand[data.id] = data.value;
+    },
     addBrand() {
       this.axios
         .post("api/car-brands", this.brand)

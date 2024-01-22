@@ -12,16 +12,17 @@
             'Updated at',
             'Deleted at',
           ]"
-          v-bind:data="[model]"
+          v-bind:data="[modelDisplay]"
         />
       </div>
       <div class="col-md-6">
         <form @submit.prevent="updateModel">
           <SimpleInput
-            id="car_model"
+            id="name"
             labelText="Car model"
             v-model="model.name"
             type="text"
+            @UpdateValue="updateValue"
           />
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -36,6 +37,7 @@ export default {
   data() {
     return {
       model: {},
+      modelDisplay: {},
     };
   },
   mounted() {
@@ -47,17 +49,20 @@ export default {
         .get(`api/car-models/${this.$route.params.id}`)
         .then((response) => {
           this.model = response.data.data;
+          this.modelDisplay = Object.assign({}, response.data.data);
         })
         .catch((error) => {
           console.log(error);
           this.model = {};
         });
     },
+    updateValue (data) {
+      this.model[data.id] = data.value;
+    },
     updateModel() {
-      const data = JSON.parse(JSON.stringify(this.model));
       let formData = {
-        name: data.name,
-        car_brand_id: data.brand.id,
+        name: this.model.name,
+        car_brand_id: this.model.car_brand_id,
       };
 
       this.axios
@@ -67,6 +72,7 @@ export default {
           if (response.status == "200") {
             alert("Model updated success");
           }
+          this.getModel();
         })
         .catch((error) => {
           if (error.response) {

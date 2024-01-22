@@ -6,7 +6,7 @@
       :value="modelValue"
       :type="type"
       :step="step"
-      @change="$emit('update:modelValue', $event.target.value)"
+      @change="$emit('UpdateValue', $event.target)"
     />
   </div>
 </template>

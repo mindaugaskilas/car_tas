@@ -12,16 +12,17 @@
             'Updated at',
             'Deleted at',
           ]"
-          v-bind:data="[brand]"
+          v-bind:data="[brandDisplay]"
         />
       </div>
       <div class="col-md-6">
         <form @submit.prevent="updateBrand">
           <SimpleInput
-            id="car_brand"
+            id="name"
             labelText="Car brand"
             v-model=brand.name
             type="text"
+            @UpdateValue="updateValue"
           />
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -36,6 +37,7 @@ export default {
   data() {
     return {
       brand: {},
+      brandDisplay: {},
     };
   },
   mounted() {
@@ -45,10 +47,14 @@ export default {
     async getBrand() {
       await this.axios.get(`api/car-brands/${this.$route.params.id}`).then(response => {
         this.brand = response.data.data
+        this.brandDisplay = Object.assign({}, response.data.data);
       }).catch(error => {
         console.log(error)
         this.brand = {}
       })
+    },
+    updateValue (data) {
+      this.brand[data.id] = data.value;
     },
     updateBrand() {
       let formData = {
@@ -62,6 +68,7 @@ export default {
           if (response.status == '200') {
             alert('Brand updated success')
           }
+          this.getBrand();
         })
         .catch((error) => {
           if (error.response) {

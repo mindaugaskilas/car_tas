@@ -17,27 +17,26 @@ class CarController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $filter = $request->query();
-        $n = $filter[FilterEnum::NUMBER->value] ?? '';
-        $b = $filter[FilterEnum::BRAND->value] ?? '';
-        $m = $filter[FilterEnum::MODEL->value] ?? '';
+        $number = $filter[FilterEnum::NUMBER->value] ?? '';
+        $brand = $filter[FilterEnum::BRAND->value] ?? '';
+        $model = $filter[FilterEnum::MODEL->value] ?? '';
         $thisTrashed = isset($filter[FilterEnum::SOFT_DELETED->value]) && $filter[FilterEnum::SOFT_DELETED->value];
 
         $cars = Car::with(['carBrand', 'carModel'])
             ->when($thisTrashed, function($query) {
                 $query->whereNotNull('deleted_at')->withTrashed();
             })
-            ->when($filter, function ($query) use ($filter, $n, $b, $m) {
-                $query->where('car_number', 'like', '%' . $n . '%')
-            ->whereHas('carBrand', function ($q) use ($filter, $b) {
-                $q->where('name', 'like', '%' . $b . '%');
+            ->when($filter, function ($query) use ($filter, $number, $brand, $model) {
+                $query->where('car_number', 'like', '%' . $number . '%')
+            ->whereHas('carBrand', function ($query) use ($filter, $brand) {
+                $query->where('name', 'like', '%' . $brand . '%');
             })
-            ->whereHas('carModel', function ($q) use ($filter, $m) {
-                $q->where('name', 'like', '%' . $m . '%');
+            ->whereHas('carModel', function ($query) use ($filter, $model) {
+                $query->where('name', 'like', '%' . $model . '%');
             });
 
             return $query;
-        })
-        ->get();
+        })->get();
 
         return CarResource::collection($cars);
     }

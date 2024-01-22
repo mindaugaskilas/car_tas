@@ -12,10 +12,11 @@
             @SelectEventChanged="updateBrandId"
           />
           <SimpleInput
-            id="car_model"
+            id="name"
             labelText="Car model"
             v-model="model.name"
             type="text"
+            @UpdateValue="updateValue"
           />
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -69,6 +70,9 @@ export default {
     },
     updateBrandId(data) {
       this.model.car_brand_id = data;
+    },
+    updateValue (data) {
+      this.model[data.id] = data.value;
     },
   },
 };

@@ -21,16 +21,18 @@
       <div class="col-md-6">
         <form @submit.prevent="updateCar">
           <SimpleInput
-            id="car_numer"
+            id="car_number"
             labelText="Car number"
             v-model="car.car_number"
             type="text"
+            @UpdateValue="updateValue"
           />
           <SimpleInput
             id="fuel_tank_capacity"
             labelText="Fuel tank capacity"
             v-model="car.fuel_tank_capacity"
             type="number"
+            @UpdateValue="updateValue"
           />
           <SimpleInput
             id="average_fuel_consumption"
@@ -38,6 +40,7 @@
             v-model="car.average_fuel_consumption"
             type="number"
             step="0.1"
+            @UpdateValue="updateValue"
           />
           <SimpleSelect
             id="car_brand_id"
@@ -86,7 +89,7 @@ export default {
         .get(`api/cars/${this.$route.params.id}`)
         .then((response) => {
           this.car = response.data.data;
-          this.carDisplay = response.data.data;
+          this.carDisplay = Object.assign({}, response.data.data);
           this.selectedBrandValue = this.car.car_brand.id;
           this.getBrand();
         })
@@ -132,12 +135,14 @@ export default {
     updateModelId(data) {
       this.selectedModelValue = Number(data);
     },
+    updateValue (data) {
+      this.car[data.id] = data.value;
+    },
     updateCar() {
-      const data = JSON.parse(JSON.stringify(this.car));
       let formData = {
-        car_number: data.car_number,
-        fuel_tank_capacity: data.fuel_tank_capacity,
-        average_fuel_consumption: data.average_fuel_consumption,
+        car_number: this.car.car_number,
+        fuel_tank_capacity: this.car.fuel_tank_capacity,
+        average_fuel_consumption: this.car.average_fuel_consumption,
         car_brand_id: this.selectedBrandValue,
         car_model_id: this.selectedModelValue,
       };
