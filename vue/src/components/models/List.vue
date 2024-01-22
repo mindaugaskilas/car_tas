@@ -22,8 +22,18 @@
                   <td>{{ model.updated_at }}</td>
                   <td>{{ model.deleted_at }}</td>
                   <td class="d-inline-flex">
-                    <router-link :to='{name: "modelEdit", params: { id:model.id }}' class="btn btn-success">Edit</router-link>
-                    <button type="button" @click="deleteModel(model.id)" class="btn btn-danger">Delete</button>
+                    <router-link
+                      :to="{ name: 'modelEdit', params: { id: model.id } }"
+                      class="btn btn-success"
+                      >Edit</router-link
+                    >
+                    <button
+                      type="button"
+                      @click="deleteModel(model.id)"
+                      class="btn btn-danger"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -41,39 +51,44 @@
 </template>
   
 <script>
-
 export default {
-    name: "ModelList",
-    data() {
-        return {
-            models: []
-        };
+  name: "ModelList",
+  data() {
+    return {
+      models: [],
+    };
+  },
+  mounted() {
+    this.getModelList();
+  },
+  methods: {
+    async getModelList() {
+      await this.axios
+        .get("api/car-models")
+        .then((response) => {
+          this.models = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          this.models = [];
+        });
     },
-    mounted() {
-        this.getModelList();
-    },
-    methods: {
-        async getModelList() {
-            await this.axios.get('api/car-models').then(response => {
-                this.models = response.data.data;
-            }).catch(error => {
-                console.log(error);
-                this.models = [];
-            });
-        },
-        deleteModel(id) {
-            if (confirm("Are you sure to delete this model?")) {
-                this.axios.delete(`api/car-models/${id}`).then(response => {
-                    if (response.status === 204) {
-                        this.getModelList();
-                    }
-                }).catch(error => {
-                    console.log(error);
-                });
+    deleteModel(id) {
+      if (confirm("Are you sure to delete this model?")) {
+        this.axios
+          .delete(`api/car-models/${id}`)
+          .then((response) => {
+            if (response.status === 204) {
+              this.getModelList();
             }
-        }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
-}
+  },
+};
 </script>
   
 <style scoped></style>

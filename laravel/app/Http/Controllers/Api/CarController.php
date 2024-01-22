@@ -16,40 +16,28 @@ class CarController extends Controller
 {
     public function index(Request $request): AnonymousResourceCollection
     {
-        $thisTrashed = false;
-        $filterName = FilterEnum::DEFAULT_KEY->value;
-        $direction = false;
-
-        if ($request->has('filter')) {
-            $filter = $request->input('filter');
-        } else {
-            $filter = [FilterEnum::DEFAULT_KEY->value => FilterEnum::ASC->value];
-        }
-
-        switch ($filter) {
-            case array_key_first($filter) === FilterEnum::NUMBER->value:
-                $filterName = FilterEnum::CAR_NUMBER_KEY->value;
-                $direction = (bool)$filter[FilterEnum::NUMBER->value];
-                break;
-            case array_key_first($filter) === FilterEnum::BRAND->value:
-                $filterName = FilterEnum::BRAND_KEY->value;
-                $direction = (bool)$filter[FilterEnum::BRAND->value];
-                break;
-            case array_key_first($filter) === FilterEnum::MODEL->value:
-                $filterName = FilterEnum::MODEL_KEY->value;
-                $direction = (bool)$filter[FilterEnum::MODEL->value];
-                break;
-            case array_key_first($filter) === FilterEnum::SOFT_DELETED->value:
-                $thisTrashed = (bool)$filter[FilterEnum::SOFT_DELETED->value];
-                break;
-        }
+        $filter = $request->query();
+        $n = $filter[FilterEnum::NUMBER->value] ?? '';
+        $b = $filter[FilterEnum::BRAND->value] ?? '';
+        $m = $filter[FilterEnum::MODEL->value] ?? '';
+        $thisTrashed = isset($filter[FilterEnum::SOFT_DELETED->value]) && $filter[FilterEnum::SOFT_DELETED->value];
 
         $cars = Car::with(['carBrand', 'carModel'])
             ->when($thisTrashed, function($query) {
                 $query->whereNotNull('deleted_at')->withTrashed();
             })
-            ->get()
-            ->sortBy($filterName, 0, $direction);
+            ->when($filter, function ($query) use ($filter, $n, $b, $m) {
+                $query->where('car_number', 'like', '%' . $n . '%')
+            ->whereHas('carBrand', function ($q) use ($filter, $b) {
+                $q->where('name', 'like', '%' . $b . '%');
+            })
+            ->whereHas('carModel', function ($q) use ($filter, $m) {
+                $q->where('name', 'like', '%' . $m . '%');
+            });
+
+            return $query;
+        })
+        ->get();
 
         return CarResource::collection($cars);
     }

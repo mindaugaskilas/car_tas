@@ -127,12 +127,10 @@ export default {
     },
     updateBrandId(data) {
       this.selectedBrandValue = Number(data);
-      this.car.car_brand_id = data;
       this.getBrand();
     },
     updateModelId(data) {
       this.selectedModelValue = Number(data);
-      this.car.car_model_id = data;
     },
     updateCar() {
       const data = JSON.parse(JSON.stringify(this.car));
@@ -140,8 +138,8 @@ export default {
         car_number: data.car_number,
         fuel_tank_capacity: data.fuel_tank_capacity,
         average_fuel_consumption: data.average_fuel_consumption,
-        car_brand_id: data.car_brand_id,
-        car_model_id: data.car_model_id,
+        car_brand_id: this.selectedBrandValue,
+        car_model_id: this.selectedModelValue,
       };
 
       this.axios

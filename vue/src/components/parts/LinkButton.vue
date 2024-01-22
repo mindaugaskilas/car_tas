@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 mb-2 text-end">
+  <div class="col-1 mb-1">
     <router-link :to='{ name: route }' class="btn btn-primary">{{ label }}</router-link>
   </div>
 </template>

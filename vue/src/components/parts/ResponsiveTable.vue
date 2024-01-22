@@ -35,10 +35,5 @@ export default {
     headers: Array,
     data: Array,
   },
-  computed: {
-    isInArray: function(value) {
-        return this.array.includes(value);
-    }
-  }
 };
 </script>
