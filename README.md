@@ -1,19 +1,15 @@
 # Getting started
-For manually starting:
+For starting:
 
-install docker desktop
+install docker desktop(if not installed early)
 
-`cd laravel`
+In root folder run 
 
-`docker-compose up -d`
+`sh init.sh`
 
 Get inside laravel container
 
 `docker exec -it laravel sh`
-
-`composer install`
-
-`composer dump-autoload`
 
 `php artisan migrate:fresh`
 

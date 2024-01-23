@@ -90,7 +90,7 @@ export default {
         .then((response) => {
           this.car = response.data.data;
           this.carDisplay = Object.assign({}, response.data.data);
-          this.selectedBrandValue = this.car.car_brand.id;
+          this.selectedBrandValue = this.car?.car_brand?.id;
           this.getBrand();
         })
         .catch((error) => {
@@ -116,17 +116,19 @@ export default {
         });
     },
     async getBrand() {
+      if (this.selectedBrandValue) {
       await this.axios
         .get(`api/car-brands/${this.selectedBrandValue}`)
         .then((response) => {
           const brand = response.data.data;
           this.modelOptions = brand.models;
-          this.selectedModelValue = this.car.car_model.id;
+          this.selectedModelValue = this.car?.car_model?.id;
         })
         .catch((error) => {
           console.log(error);
           this.modelOptions = [];
         });
+      }
     },
     updateBrandId(data) {
       this.selectedBrandValue = Number(data);
