@@ -15,15 +15,7 @@ Get inside laravel container
 
 `php artisan db:seed`
 
-Get outside laravel container
-
 `exit`
-
-Get inside vue container
-
-`docker exec -it vue sh`
-
-`npm install`
 
 # Routes
 
